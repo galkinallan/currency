@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Show</title>
+</head>
+<body>
+<p th:text="${currency.getValuteId() + ' ' + currency.getNumCode() + ' ' + currency.getCharCode() + ' ' + currency.getNominal()
+           + ' ' + currency.getName()  + ' ' + currency.getValue()}"> user</p>
+<!--<p th:text="${'Email: ' + person.getEmail()}">VALUE</p>-->
+
+
+</form>
+</body>
+</html>
