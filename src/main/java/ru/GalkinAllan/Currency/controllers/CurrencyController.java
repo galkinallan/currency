@@ -19,13 +19,13 @@ public class CurrencyController {
 
 
     @Autowired
-
     public CurrencyController(CurrencyService currencyService) {
         this.currencyService = currencyService;
     }
 
     @GetMapping("/currencies")
     public String index(Model model) {
+        currencyService.save();
         return listByPage(model, 1);
     }
 
@@ -47,6 +47,7 @@ public class CurrencyController {
         model.addAttribute("currency", currencyService.findOne(charcode));
         return "/show";
     }
+
 
 
 }

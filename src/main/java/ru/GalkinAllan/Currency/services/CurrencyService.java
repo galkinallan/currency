@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.util.List;
 
 
+
 @Service
 @Transactional(readOnly = true)
 public class CurrencyService {
@@ -38,17 +39,18 @@ public class CurrencyService {
         return currencyRepository.findByCharCode(charCode);
     }
     @Transactional
-    public void save() throws IOException, InterruptedException {
-        List<Currency> currencies = currencyParser.parse(currencyRequester.getRatesASXml("http://www.cbr.ru/scripts/XML_daily.asp"));
+    public void save()  {
+        List<Currency> currencies = null;
+        try {
+            currencies = currencyParser.parse(currencyRequester.getRatesASXml("https://www.cbr.ru/scripts/XML_daily.asp"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        for (Currency currency : currencies) {
+            currency.setId(currencyRepository.findByCharCode(currency.getCharCode()).getId());
+        }
         currencyRepository.saveAll(currencies);
     }
-
-
-
-
-
-
-
-
-
 }
